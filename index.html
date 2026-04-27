@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melt-Labs Menu Display</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
+
+        :root {
+            --bg-dark: #0a0a0c;
+            --card-bg: #16161a;
+            --cheese-glow: #FFB800;
+            --cheese-deep: #FF6B00;
+            --text-light: #f8f8f2;
+            --text-muted: #8b8b99;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 184, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(255, 107, 0, 0.05) 0%, transparent 50%);
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            animation: slideDown 1s ease-out;
+        }
+
+        h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--cheese-glow), var(--cheese-deep));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255, 184, 0, 0.3));
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: var(--text-muted);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        /* Menu Grid */
+        .menu-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 0 40px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 25px 50px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            animation: fadeUp 0.8s ease-out backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Staggered entrance animations */
+        .menu-item:nth-child(1) { animation-delay: 0.2s; }
+        .menu-item:nth-child(2) { animation-delay: 0.4s; }
+        .menu-item:nth-child(3) { animation-delay: 0.6s; }
+        .menu-item:nth-child(4) { animation-delay: 0.8s; }
+        .menu-item:nth-child(5) { animation-delay: 1.0s; }
+
+        /* Left accent line on cards */
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(to bottom, var(--cheese-glow), var(--cheese-deep));
+        }
+
+        .item-details {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .item-icon {
+            font-size: 3.5rem; 
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+        }
+
+        .item-name {
+            font-size: 2.5rem; 
+            font-weight: 700;
+        }
+
+        .item-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .item-price {
+            font-size: 3.5rem; 
+            font-weight: 900;
+            color: var(--cheese-glow);
+            text-shadow: 0 0 20px rgba(255, 184, 0, 0.2);
+        }
+
+        /* Footer / Payment Badge */
+        footer {
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .payment-badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+            animation: pulse 3s infinite;
+        }
+
+        .payment-icon {
+            background: #fff;
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 1.5rem;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 255, 255, 0.05); }
+            50% { transform: scale(1.02); box-shadow: 0 0 40px rgba(255, 255, 255, 0.15); }
+            100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 255, 255, 0.05); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🧪 Melt-Labs</h1>
+        <div class="subtitle">Charity Week Menu</div>
+    </header>
+
+    <div class="menu-container">
+        
+        <div class="menu-item">
+            <div class="item-details">
+                <div class="item-icon">🥪</div>
+                <div>
+                    <div class="item-name">Grilled Cheese</div>
+                    <div class="item-desc">The classic. Perfectly melted.</div>
+                </div>
+            </div>
+            <div class="item-price">$2.50</div>
+        </div>
+
+        <div class="menu-item">
+            <div class="item-details">
+                <div class="item-icon">🥤</div>
+                <div>
+                    <div class="item-name">Regular Combo</div>
+                    <div class="item-desc">Grilled Cheese + Ice Cold Soda</div>
+                </div>
+            </div>
+            <div class="item-price">$3.00</div>
+        </div>
+
+        <div class="menu-item">
+            <div class="item-details">
+                <div class="item-icon">✨</div>
+                <div>
+                    <div class="item-name">Deluxe Grilled Cheese</div>
+                    <div class="item-desc">The ultimate cheese experience.</div>
+                </div>
+            </div>
+            <div class="item-price">$2.75</div>
+        </div>
+
+        <div class="menu-item">
+            <div class="item-details">
+                <div class="item-icon">🌟</div>
+                <div>
+                    <div class="item-name">Deluxe Combo</div>
+                    <div class="item-desc">Deluxe Grilled Cheese + Ice Cold Soda</div>
+                </div>
+            </div>
+            <div class="item-price">$3.25</div>
+        </div>
+
+        <div class="menu-item">
+            <div class="item-details">
+                <div class="item-icon">🧊</div>
+                <div>
+                    <div class="item-name">Soda</div>
+                    <div class="item-desc">Ice cold and refreshing.</div>
+                </div>
+            </div>
+            <div class="item-price">$1.00</div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="payment-badge">
+            <span class="payment-icon">FP</span>
+            Proudly Accepting Fraser Pay
+        </div>
+    </footer>
+
+</body>
+</html>
